@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 19:42:22 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/04 02:35:32 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/04 03:41:47 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,20 @@ typedef struct s_philo
 	pthread_t		philo;
 	pthread_mutex_t	fork_r;
 	pthread_mutex_t	fork_l;
-}	t_philo;
-
-typedef struct s_philos
-{
-	t_philo	philos[200];
 	int		is_dead;
 	int		is_eating;
 	int		is_sleeping;
-}	t_philos;
+	int		is_thinking;
+}	t_philo;
+
+typedef struct s_table
+{
+	t_philo	philos[200];
+	int		time_to_die;
+	int		time_to_eat;
+	int		time_to_sleep;
+	int		num_of_eat;
+}	t_table;
 
 // Validation
 void	error_handler(const char *error_msg, int exit_code);
