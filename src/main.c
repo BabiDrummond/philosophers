@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 19:41:52 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/04 20:16:19 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/04 20:21:39 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ void	init_table(t_table *table, int argc, char **argv)
 	table->time_to_sleep = ft_atol(argv[4]);
 	if (argc == 6)
 		table->num_of_eat = ft_atol(argv[5]);
+	table->philos = malloc((table->num_philos + 1) * sizeof(t_philo));
+	if (!table->philos)
+		error_handler("Error to allocate philos.", EXIT_FAILURE);
 }
 
 void	init_philos(t_table *table)
@@ -36,11 +39,11 @@ void	init_philos(t_table *table)
 	i = -1;
 	while (++i < table->num_philos)
 		if (pthread_create(&table->philos[i].philo, NULL, start_routine, &table))
-			printf("Error creating thread.\n");
+			error_handler("Error creating thread.", EXIT_FAILURE);
 	i = -1;
 	while (++i < table->num_philos)
 		if (pthread_join(table->philos[i].philo, NULL))
-			printf("Error joining thread.\n");
+			error_handler("Error joining thread.", EXIT_FAILURE);
 }
 
 int	main(int argc, char **argv)

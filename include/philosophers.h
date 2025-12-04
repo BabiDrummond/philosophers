@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 19:42:22 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/04 19:56:30 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/04 20:17:18 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_philo
 
 typedef struct s_table
 {
-	t_philo	philos[200];
+	t_philo	*philos;
 	int		num_philos;
 	int		time_to_die;
 	int		time_to_eat;
