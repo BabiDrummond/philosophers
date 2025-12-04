@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/14 19:41:52 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/04 02:35:20 by bmoreira         ###   ########.fr       */
+/*   Created: 2025/12/04 01:51:48 by bmoreira          #+#    #+#             */
+/*   Updated: 2025/12/04 01:52:03 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	*start_routine(void *arg)
+long	ft_atol(char *str)
 {
-	printf("Created new thread!\n");
-	(void) arg;
-	return (NULL);
-}
+	long	num;
+	int		negative;
 
-int	main(int argc, char *argv[])
-{
-	t_philo	philo;
-
-	validate_input(argc, argv);
-	// init
-	// start routine contem a logica do projeto (pegar garfos, comer, dormir)
-	if (pthread_create(&philo.philo, NULL, start_routine, &philo))
-		printf("Error creating thread.\n");
-	pthread_join(philo.philo, NULL);
-	return (0);
+	num = 0;
+	negative = 1;
+	if (*str == '-' || *str == '+')
+		if (*str++ == '-')
+			negative *= -1;
+	while (*str)
+	{
+		if (*str < '0' || *str > '9')
+			return ((long) INT_MAX + 1);
+		num = (num * 10) + *str++ - 48;
+		if ((num > INT_MAX && negative == 1)
+			|| (num > (long) INT_MAX + 1 && negative == -1))
+			return ((long) INT_MAX + 1);
+	}
+	return (num * negative);
 }
