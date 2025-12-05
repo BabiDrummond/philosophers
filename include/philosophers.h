@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 19:42:22 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/05 20:08:04 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/05 20:54:50 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,11 @@
 
 typedef struct s_philo
 {
+	int				philo_id;
+	long			start_time;
 	pthread_t		thread_id;
 	pthread_mutex_t	fork_r;
 	pthread_mutex_t	fork_l;
-	long			start_time;
-	int				philo_id;
-	int				is_dead;
-	int				is_eating;
-	int				is_sleeping;
-	int				is_thinking;
 }	t_philo;
 
 typedef struct s_table

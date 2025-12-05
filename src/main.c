@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 19:41:52 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/05 20:10:52 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/05 20:53:29 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	init_table(t_table *table, int argc, char **argv)
 		table->num_of_eat = 0;
 	table->philos = malloc((table->num_philos + 1) * sizeof(t_philo));
 	if (!table->philos)
-		error_handler("Error to allocate philos.", EXIT_FAILURE);
+		error_handler("Error allocating philos.", EXIT_FAILURE);
 }
 
 void	init_mutex(t_table *table)
