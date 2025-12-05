@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 19:41:52 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/05 20:01:28 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/05 20:10:52 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	*start_routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *) arg;
-	printf("%d: Created new thread! Philo_id: %d, Thread_id: %lu\n",
+	printf("%lu: Created new thread! Philo_id: %d, Thread_id: %lu\n",
 		philo->start_time, philo->philo_id, philo->thread_id);
 	return (NULL);
 }
@@ -61,7 +61,8 @@ void	init_philos(t_table *table)
 	while (++i < table->num_philos)
 	{
 		table->philos[i].philo_id = i + 1;
-		table->philos[i].start_time = start.tv_sec * 1000000 + start.tv_usec;
+		table->philos[i].start_time = (start.tv_sec * 1000)
+			+ (start.tv_usec / 1000);
 		if (pthread_create(&table->philos[i].thread_id, NULL, start_routine,
 				&table->philos[i]))
 			error_handler("Error creating thread.", EXIT_FAILURE);
