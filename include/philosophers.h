@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 19:42:22 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/05 19:16:39 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/05 20:00:07 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_philo
 	pthread_mutex_t	fork_r;
 	pthread_mutex_t	fork_l;
 	int				philo_id;
+	int				start_time;
 	int				is_dead;
 	int				is_eating;
 	int				is_sleeping;

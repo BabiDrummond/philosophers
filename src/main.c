@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 19:41:52 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/05 19:17:05 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/05 20:01:28 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	*start_routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *) arg;
-	printf("Created new thread! Philo_id: %d, Thread_id: %lu\n",
-		philo->philo_id, philo->thread_id);
+	printf("%d: Created new thread! Philo_id: %d, Thread_id: %lu\n",
+		philo->start_time, philo->philo_id, philo->thread_id);
 	return (NULL);
 }
 
@@ -53,12 +53,15 @@ void	init_mutex(t_table *table)
 
 void	init_philos(t_table *table)
 {
-	int	i;
+	struct timeval	start;
+	int				i;
 
 	i = -1;
+	gettimeofday(&start, NULL);
 	while (++i < table->num_philos)
 	{
 		table->philos[i].philo_id = i + 1;
+		table->philos[i].start_time = start.tv_sec * 1000000 + start.tv_usec;
 		if (pthread_create(&table->philos[i].thread_id, NULL, start_routine,
 				&table->philos[i]))
 			error_handler("Error creating thread.", EXIT_FAILURE);
