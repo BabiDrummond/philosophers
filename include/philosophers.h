@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 19:42:22 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/04 20:17:18 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/05 19:16:39 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,21 @@
 # include <pthread.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <sys/time.h>
 
 # define INT_MAX 2147483647
 # define INT_MIN -2147483648
 
 typedef struct s_philo
 {
-	pthread_t		philo;
+	pthread_t		thread_id;
 	pthread_mutex_t	fork_r;
 	pthread_mutex_t	fork_l;
-	int		is_dead;
-	int		is_eating;
-	int		is_sleeping;
-	int		is_thinking;
+	int				philo_id;
+	int				is_dead;
+	int				is_eating;
+	int				is_sleeping;
+	int				is_thinking;
 }	t_philo;
 
 typedef struct s_table

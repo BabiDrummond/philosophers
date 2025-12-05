@@ -33,6 +33,6 @@ fclean: clean
 re: fclean all
 
 run: re
-	./$(NAME)
+	./$(NAME) 9 200 100 100
 
 .PHONY: clean fclean re bonus

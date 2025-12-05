@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 01:50:24 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/04 03:35:28 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/05 19:15:41 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	validate_arguments(char **argv)
 	i = 0;
 	while (argv[++i])
 		if (ft_atol(argv[i]) <= 0 || ft_atol(argv[i]) > INT_MAX)
-			error_handler("Invalid argument provided.", EXIT_FAILURE);	
+			error_handler("Invalid argument provided.", EXIT_FAILURE);
 }
 
 void	validate_input(int argc, char **argv)
