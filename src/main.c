@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 19:41:52 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/05 20:53:29 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/06 16:48:10 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ void	*start_routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *) arg;
+	// printf("Time now:")
 	printf("%lu: Created new thread! Philo_id: %d, Thread_id: %lu\n",
-		philo->start_time, philo->philo_id, philo->thread_id);
+		philo->table->start_time, philo->philo_id, philo->thread_id);
 	return (NULL);
 }
 
@@ -44,6 +45,7 @@ void	init_mutex(t_table *table)
 	i = -1;
 	while (++i < table->num_philos)
 	{
+		memset(&table->philos[i].fork_r, 0, sizeof(pthread_mutex_t));
 		if (pthread_mutex_init(&table->philos[i].fork_r, NULL))
 			error_handler("Error initializing mutex.", EXIT_FAILURE);
 		if (i >= 1)
@@ -58,11 +60,11 @@ void	init_philos(t_table *table)
 
 	i = -1;
 	gettimeofday(&start, NULL);
+	table->start_time = (start.tv_sec * 1000) + (start.tv_usec / 1000);
 	while (++i < table->num_philos)
 	{
+		table->philos[i].table = table;
 		table->philos[i].philo_id = i + 1;
-		table->philos[i].start_time = (start.tv_sec * 1000)
-			+ (start.tv_usec / 1000);
 		if (pthread_create(&table->philos[i].thread_id, NULL, start_routine,
 				&table->philos[i]))
 			error_handler("Error creating thread.", EXIT_FAILURE);
