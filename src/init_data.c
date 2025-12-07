@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 17:10:29 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/07 14:48:19 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/07 15:57:15 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ static int	init_table(t_table *table, int argc, char **argv)
 		table->num_of_eat = 0;
 	table->philos = malloc((table->num_philos + 1) * sizeof(t_philo));
 	if (!table->philos)
-		return (throw_error(NULL, 0, "Error allocating philos."));
+		return (throw_error(NULL, 0, "Philos allocation"));
 	return (SUCCESS);
 }
 
-static int	init_mutex(t_table *table)
+static int	init_forks(t_table *table)
 {
 	int	i;
 
@@ -40,7 +40,7 @@ static int	init_mutex(t_table *table)
 	{
 		memset(&table->philos[i].fork_r, 0, sizeof(pthread_mutex_t));
 		if (pthread_mutex_init(&table->philos[i].fork_r, NULL))
-			return (throw_error(table, i, "Error initializing mutex."));
+			return (throw_error(table, i, "Mutex initialization"));
 		if (i >= 1)
 			table->philos[i].fork_l = table->philos[i - 1].fork_r;
 	}
@@ -61,21 +61,23 @@ static int	init_philos(t_table *table)
 		table->philos[i].philo_id = i + 1;
 		if (pthread_create(&table->philos[i].thread_id, NULL, start_routine,
 				&table->philos[i]))
-			return (throw_error(table, table->num_philos,
-				"Error creating thread."));
+			return (throw_error(table, table->num_philos, "Thread creation"));
 	}
+	if (pthread_create(&table->monitor, NULL, start_monitor, &table))
+		return (throw_error(table, table->num_philos, "Monitor creation"));
 	i = -1;
 	while (++i < table->num_philos)
 		if (pthread_join(table->philos[i].thread_id, NULL))
-			return (throw_error(table, table->num_philos,
-				"Error joining thread."));
+			return (throw_error(table, table->num_philos, "Thread joining"));
+	if (pthread_join(table->monitor, NULL))
+			return (throw_error(table, table->num_philos, "Monitor joining"));
 	return (SUCCESS);
 }
 
 int	init_data(t_table *table, int argc, char **argv)
 {
 	if (!init_table(table, argc, argv)
-		|| !init_mutex(table)
+		|| !init_forks(table)
 		|| !init_philos(table))
 		return (FAILURE);
 	return (SUCCESS);

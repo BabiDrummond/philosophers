@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 14:48:01 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/07 14:57:43 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/07 16:01:16 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	is_philo_alive(t_philo *philo)
 
 void	*start_routine(void *arg)
 {
-	t_philo			*philo;
+	t_philo	*philo;
 
 	philo = (t_philo *) arg;
 	printf("Time passed: %lu\n", get_time_passed(philo));
@@ -46,5 +46,13 @@ void	*start_routine(void *arg)
 	while (is_philo_alive(philo))
 		printf("%lu is alive\n", get_time_passed(philo));
 	printf("%lu is dead\n", get_time_passed(philo));
+	return (NULL);
+}
+
+void	*start_monitor(void *arg)
+{
+	t_table	*table;
+
+	table = (t_table *) arg;
 	return (NULL);
 }

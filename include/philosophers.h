@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 19:42:22 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/07 14:54:29 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/07 15:47:51 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,14 @@ typedef struct s_philo
 
 typedef struct s_table
 {
-	t_philo	*philos;
-	long	start_time;
-	int		num_philos;
-	int		time_to_die;
-	int		time_to_eat;
-	int		time_to_sleep;
-	int		num_of_eat;
+	pthread_t 	monitor;
+	t_philo		*philos;
+	long		start_time;
+	int			num_philos;
+	int			time_to_die;
+	int			time_to_eat;
+	int			time_to_sleep;
+	int			num_of_eat;
 }	t_table;
 
 int		validate_input(int argc, char **argv);
@@ -54,5 +55,6 @@ int		init_data(t_table *table, int argc, char **argv);
 long	safe_atoi(char *str);
 void	clean_all(t_table *table, int m_count);
 void	*start_routine(void *arg);
+void	*start_monitor(void *arg);
 
 #endif
