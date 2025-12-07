@@ -6,51 +6,23 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 17:10:29 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/06 22:30:57 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/07 14:48:19 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-
-long	get_time_passed(t_philo *philo)
-{
-	struct timeval	now;
-	
-	gettimeofday(&now, NULL);
-	return ((now.tv_sec * 1000) + (now.tv_usec / 1000)
-		- philo->table->start_time);
-}
-
-int	is_philo_alive(t_philo *philo)
-{
-	if (get_time_passed(philo) < philo->table->time_to_die)
-		return (SUCCESS);
-	return (FAILURE);
-}
-
-void	*start_routine(void *arg)
-{
-	t_philo			*philo;
-
-	philo = (t_philo *) arg;
-	printf("Time passed: %lu\n", get_time_passed(philo));
-	printf("%lu: Created new thread! Philo_id: %d, Thread_id: %lu\n",
-		philo->table->start_time, philo->philo_id, philo->thread_id);
-	return (NULL);
-}
 
 static int	init_table(t_table *table, int argc, char **argv)
 {
 	int	i;
 
 	i = -1;
-	table->num_philos = ft_atol(argv[1]);
-	table->time_to_die = ft_atol(argv[2]);
-	table->time_to_eat = ft_atol(argv[3]);
-	table->time_to_sleep = ft_atol(argv[4]);
+	table->num_philos = safe_atoi(argv[1]);
+	table->time_to_die = safe_atoi(argv[2]);
+	table->time_to_eat = safe_atoi(argv[3]);
+	table->time_to_sleep = safe_atoi(argv[4]);
 	if (argc == 6)
-		table->num_of_eat = ft_atol(argv[5]);
+		table->num_of_eat = safe_atoi(argv[5]);
 	else
 		table->num_of_eat = 0;
 	table->philos = malloc((table->num_philos + 1) * sizeof(t_philo));

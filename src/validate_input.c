@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 01:50:24 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/06 19:26:50 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/07 14:18:16 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	validate_input(int argc, char **argv)
 			"[time_to_die] [time_to_eat] [time_to_sleep] "
 			"[opt: num_of_times_each_philosopher_must_eat]"));
 	while (argv[++i])
-		if ((ft_atol(argv[i]) <= 0 || ft_atol(argv[i]) > INT_MAX))
+		if ((safe_atoi(argv[i]) <= 0 || safe_atoi(argv[i]) > INT_MAX))
 			return (throw_error(NULL, 0, "Invalid argument provided."));
 	return (SUCCESS);
 }

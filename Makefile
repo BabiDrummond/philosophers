@@ -6,8 +6,9 @@ INCLUDE = -Iinclude/
 SRCS_DIR = src/
 SRCS = main.c 		\
 	clean_all.c 	\
-	ft_atol.c		\
 	init_data.c		\
+	safe_atoi.c		\
+	simulation.c	\
 	throw_error.c 	\
 	validate_input.c
 OBJS_DIR = objs/

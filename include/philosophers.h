@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 19:42:22 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/06 22:29:47 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/07 14:54:29 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PHILOSOPHERS_H
 
 # include <pthread.h>
+# include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
@@ -47,11 +48,11 @@ typedef struct s_table
 	int		num_of_eat;
 }	t_table;
 
-// Validation
-void	clean_all(t_table *table, int m_count);
-int		throw_error(t_table *table, int m_count, const char *msg);
 int		validate_input(int argc, char **argv);
+int		throw_error(t_table *table, int m_count, const char *msg);
 int		init_data(t_table *table, int argc, char **argv);
-long	ft_atol(char *str);
+long	safe_atoi(char *str);
+void	clean_all(t_table *table, int m_count);
+void	*start_routine(void *arg);
 
 #endif
