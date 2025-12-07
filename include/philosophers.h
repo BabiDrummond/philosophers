@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 19:42:22 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/06 16:45:12 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/06 22:29:47 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 # define INT_MAX 2147483647
 # define INT_MIN -2147483648
 
+# define SUCCESS 1
+# define FAILURE 0
+
 typedef struct s_table t_table;
 
 typedef struct s_philo
@@ -36,18 +39,19 @@ typedef struct s_philo
 typedef struct s_table
 {
 	t_philo	*philos;
+	long	start_time;
 	int		num_philos;
 	int		time_to_die;
 	int		time_to_eat;
 	int		time_to_sleep;
 	int		num_of_eat;
-	long	start_time;
-	long	time_passed;
 }	t_table;
 
 // Validation
-void	error_handler(const char *error_msg, int exit_code);
-void	validate_input(int argc, char **argv);
+void	clean_all(t_table *table, int m_count);
+int		throw_error(t_table *table, int m_count, const char *msg);
+int		validate_input(int argc, char **argv);
+int		init_data(t_table *table, int argc, char **argv);
 long	ft_atol(char *str);
 
 #endif

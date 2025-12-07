@@ -5,8 +5,10 @@ INCLUDE = -Iinclude/
 
 SRCS_DIR = src/
 SRCS = main.c 		\
-	error_handler.c \
+	clean_all.c 	\
 	ft_atol.c		\
+	init_data.c		\
+	throw_error.c 	\
 	validate_input.c
 OBJS_DIR = objs/
 OBJS = $(SRCS:%.c=$(OBJS_DIR)%.o)
@@ -34,5 +36,8 @@ re: fclean all
 
 run: re
 	./$(NAME) 9 200 100 100
+
+valgrind: re
+	valgrind ./$(NAME) 9 200 100 100
 
 .PHONY: clean fclean re bonus

@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validate_input.c                                   :+:      :+:    :+:   */
+/*   clean_all.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/04 01:50:24 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/06 19:26:50 by bmoreira         ###   ########.fr       */
+/*   Created: 2025/12/06 22:29:15 by bmoreira          #+#    #+#             */
+/*   Updated: 2025/12/06 22:32:13 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	validate_input(int argc, char **argv)
+void	clean_all(t_table *table, int m_count)
 {
 	int	i;
 
-	i = 0;
-	if (argc != 5 && argc != 6)
-		return (throw_error(NULL, 0, "Usage: ./philo [num_of_philosophers] "
-			"[time_to_die] [time_to_eat] [time_to_sleep] "
-			"[opt: num_of_times_each_philosopher_must_eat]"));
-	while (argv[++i])
-		if ((ft_atol(argv[i]) <= 0 || ft_atol(argv[i]) > INT_MAX))
-			return (throw_error(NULL, 0, "Invalid argument provided."));
-	return (SUCCESS);
+	i = -1;
+	while (++i < m_count)
+		pthread_mutex_destroy(&table->philos[i].fork_r);
+	if (table && table->philos)
+		free(table->philos);
 }
