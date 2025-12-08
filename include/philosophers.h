@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 19:42:22 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/07 15:47:51 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/07 18:57:35 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,30 +23,33 @@
 # define INT_MAX 2147483647
 # define INT_MIN -2147483648
 
-# define SUCCESS 1
-# define FAILURE 0
+# define TRUE 1
+# define FALSE 0
 
 typedef struct s_table t_table;
 
 typedef struct s_philo
 {
-	int				philo_id;
 	pthread_t		thread_id;
 	pthread_mutex_t	fork_r;
 	pthread_mutex_t	fork_l;
+	int				philo_id;
+	int				meals_eaten;
+	long			last_meal;
 	t_table			*table;
 }	t_philo;
 
 typedef struct s_table
 {
-	pthread_t 	monitor;
-	t_philo		*philos;
-	long		start_time;
-	int			num_philos;
-	int			time_to_die;
-	int			time_to_eat;
-	int			time_to_sleep;
-	int			num_of_eat;
+	int				num_philos;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				num_of_eat;
+	long			start_time;
+	int				is_running;
+	t_philo			*philos;
+	pthread_mutex_t	monitor;
 }	t_table;
 
 int		validate_input(int argc, char **argv);
@@ -56,5 +59,7 @@ long	safe_atoi(char *str);
 void	clean_all(t_table *table, int m_count);
 void	*start_routine(void *arg);
 void	*start_monitor(void *arg);
+long	get_time_now(void);
+long	get_time_passed(long start);
 
 #endif

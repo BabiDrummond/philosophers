@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 17:10:29 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/07 15:57:15 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/07 19:07:59 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static int	init_table(t_table *table, int argc, char **argv)
 	table->time_to_die = safe_atoi(argv[2]);
 	table->time_to_eat = safe_atoi(argv[3]);
 	table->time_to_sleep = safe_atoi(argv[4]);
+	table->is_running = TRUE;
 	if (argc == 6)
 		table->num_of_eat = safe_atoi(argv[5]);
 	else
@@ -28,7 +29,9 @@ static int	init_table(t_table *table, int argc, char **argv)
 	table->philos = malloc((table->num_philos + 1) * sizeof(t_philo));
 	if (!table->philos)
 		return (throw_error(NULL, 0, "Philos allocation"));
-	return (SUCCESS);
+	if (pthread_mutex_init(&table->monitor, NULL))
+		return (throw_error(table, 0, "Mutex initialization"));
+	return (TRUE);
 }
 
 static int	init_forks(t_table *table)
@@ -44,34 +47,34 @@ static int	init_forks(t_table *table)
 		if (i >= 1)
 			table->philos[i].fork_l = table->philos[i - 1].fork_r;
 	}
-	return (SUCCESS);
+	return (TRUE);
 }
 
 static int	init_philos(t_table *table)
 {
-	struct timeval	start;
 	int				i;
 
 	i = -1;
-	gettimeofday(&start, NULL);
-	table->start_time = (start.tv_sec * 1000) + (start.tv_usec / 1000);
+	table->start_time = get_time_now();
 	while (++i < table->num_philos)
 	{
 		table->philos[i].table = table;
 		table->philos[i].philo_id = i + 1;
+		table->philos[i].meals_eaten = 0;
+		table->philos[i].last_meal = 0;
 		if (pthread_create(&table->philos[i].thread_id, NULL, start_routine,
 				&table->philos[i]))
 			return (throw_error(table, table->num_philos, "Thread creation"));
 	}
-	if (pthread_create(&table->monitor, NULL, start_monitor, &table))
-		return (throw_error(table, table->num_philos, "Monitor creation"));
+	// if (pthread_create(&table->monitor, NULL, start_monitor, &table))
+	// 	return (throw_error(table, table->num_philos, "Monitor creation"));
 	i = -1;
 	while (++i < table->num_philos)
 		if (pthread_join(table->philos[i].thread_id, NULL))
 			return (throw_error(table, table->num_philos, "Thread joining"));
-	if (pthread_join(table->monitor, NULL))
-			return (throw_error(table, table->num_philos, "Monitor joining"));
-	return (SUCCESS);
+	// if (pthread_join(table->monitor, NULL))
+	// 		return (throw_error(table, table->num_philos, "Monitor joining"));
+	return (TRUE);
 }
 
 int	init_data(t_table *table, int argc, char **argv)
@@ -79,6 +82,6 @@ int	init_data(t_table *table, int argc, char **argv)
 	if (!init_table(table, argc, argv)
 		|| !init_forks(table)
 		|| !init_philos(table))
-		return (FAILURE);
-	return (SUCCESS);
+		return (FALSE);
+	return (TRUE);
 }
