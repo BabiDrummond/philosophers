@@ -14,9 +14,6 @@
 
 static int	init_table(t_table *table, int argc, char **argv)
 {
-	int	i;
-
-	i = -1;
 	table->num_philos = safe_atoi(argv[1]);
 	table->time_to_die = safe_atoi(argv[2]);
 	table->time_to_eat = safe_atoi(argv[3]);
@@ -52,7 +49,7 @@ static int	init_forks(t_table *table)
 
 static int	init_philos(t_table *table)
 {
-	int				i;
+	int	i;
 
 	i = -1;
 	table->start_time = get_time_now();
