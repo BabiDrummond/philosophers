@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 19:42:22 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/07 18:57:35 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/08 22:35:26 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,13 @@ typedef struct s_table
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
-	int				num_of_eat;
+	int				max_meals;
 	long			start_time;
 	int				is_running;
 	t_philo			*philos;
-	pthread_mutex_t	monitor;
+	pthread_mutex_t	death_lock;
+	pthread_mutex_t	print_lock;
+	pthread_mutex_t meal_lock;
 }	t_table;
 
 int		validate_input(int argc, char **argv);
@@ -58,8 +60,7 @@ int		init_data(t_table *table, int argc, char **argv);
 long	safe_atoi(char *str);
 void	clean_all(t_table *table, int m_count);
 void	*start_routine(void *arg);
-void	*start_monitor(void *arg);
+void	*start_monitor(t_table *table);
 long	get_time_now(void);
-long	get_time_passed(long start);
 
 #endif
