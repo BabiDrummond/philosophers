@@ -6,13 +6,13 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 19:41:52 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/08 22:36:30 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/09 17:36:20 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int join_philos(t_table *table)
+int kill_philos(t_table *table)
 {
 	int	i;
 	
@@ -34,7 +34,7 @@ int	main(int argc, char **argv)
 	// start routine contem a logica do projeto (pegar garfos, comer, dormir)
 	// monitor contem logica de controle da simulação (filósofos estão vivos? deve continuar rodando?)
 	start_monitor(&table);
-	if (!join_philos(&table))
+	if (!kill_philos(&table))
 		return (EXIT_FAILURE);
 	clean_all(&table, table.num_philos);
 	return (EXIT_SUCCESS);
