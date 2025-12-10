@@ -4,13 +4,13 @@ CFLAGS = -Wall -Wextra -Werror
 INCLUDE = -Iinclude/
 
 SRCS_DIR = src/
-SRCS = main.c 		\
-	clean_all.c 	\
-	init_data.c		\
-	safe_atoi.c		\
-	simulation.c	\
-	throw_error.c 	\
-	validate_input.c
+SRCS = 	action.c 	 \
+		destroy.c	 \
+		init.c		 \
+		main.c 	 	 \
+		monitor.c	 \
+		simulation.c \
+		utils.c
 OBJS_DIR = objs/
 OBJS = $(SRCS:%.c=$(OBJS_DIR)%.o)
 

@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 19:42:22 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/09 17:48:17 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/09 21:52:47 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,37 @@ typedef struct s_table
 	pthread_mutex_t meal_lock;
 }	t_table;
 
-int		validate_input(int argc, char **argv);
-int		throw_error(t_table *table, int m_count, const char *msg);
+typedef enum e_error
+{
+	USAGE = 0,
+	INVALID_ARGUMENT = 1,
+	ALLOC = 2,
+	TABLE_MUTEX = 3,
+	FORKS = 4,
+	CREATE_THREAD = 5,
+	JOIN_THREAD = 6
+}	t_error;
+
+// Initialization
 int		init_data(t_table *table, int argc, char **argv);
-long	safe_atoi(char *str);
-void	clean_all(t_table *table, int m_count);
-void	*start_routine(void *arg);
-void	start_monitor(t_table *table);
+
+// Destroy
+void	destroy_table_mutexes(t_table *table, int m_count);
+void	destroy_forks(t_table *table, int m_count);
+void	destroy_philos(t_table *table, int p_count);
+void	destroy_data(t_table *table, int mutex, int forks, int philos);
+
+// Simulation
+void	*start_simulation(void *arg);
+
+// Utils
 long	get_time_now(void);
+long	safe_atoi(char *str);
+int		throw_error(const char *msg);
+int		validate_input(int argc, char **argv);
+
+// Monitor
+void	start_monitor(t_table *table);
+int 	is_simulation_over(t_table *table);
 
 #endif

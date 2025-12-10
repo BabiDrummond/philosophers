@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_data.c                                        :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 17:10:29 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/08 22:35:39 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/09 21:51:44 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,22 @@ static int	init_table(t_table *table, int argc, char **argv)
 		table->max_meals = 0;
 	table->philos = malloc((table->num_philos + 1) * sizeof(t_philo));
 	if (!table->philos)
-		return (throw_error(NULL, 0, "Philos allocation"));
-	if (pthread_mutex_init(&table->death_lock, NULL)
-		|| pthread_mutex_init(&table->print_lock, NULL)
-		|| pthread_mutex_init(&table->meal_lock, NULL))
-		return (throw_error(table, 0, "Mutex initialization"));
+		return (throw_error(ALLOC));
+	return (TRUE);
+}
+
+static int	init_mutexes(t_table *table)
+{
+	if (pthread_mutex_init(&table->death_lock, NULL) && throw_error(TABLE_MUTEX))
+		destroy_data()
+	if (pthread_mutex_init(&table->print_lock, NULL) && throw_error(TABLE_MUTEX))
+	{
+		return (throw_error(TABLE_MUTEX));
+	}
+	if (pthread_mutex_init(&table->meal_lock, NULL) && throw_error(TABLE_MUTEX))
+	{
+		return (throw_error(TABLE_MUTEX));
+	}
 	return (TRUE);
 }
 
@@ -42,7 +53,10 @@ static int	init_forks(t_table *table)
 	{
 		memset(&table->philos[i].fork_r, 0, sizeof(pthread_mutex_t));
 		if (pthread_mutex_init(&table->philos[i].fork_r, NULL))
-			return (throw_error(table, i, "Mutex initialization"));
+		{
+			destroy_mutexes(table, i, );
+			return (throw_error(table, "Fork mutex initialization"));
+		}
 		if (i >= 1)
 			table->philos[i].fork_l = table->philos[i - 1].fork_r;
 	}
@@ -61,9 +75,12 @@ static int	init_philos(t_table *table)
 		table->philos[i].meals_eaten = 0;
 		table->philos[i].last_meal = table->start_time;
 		table->philos[i].table = table;
-		if (pthread_create(&table->philos[i].thread_id, NULL, start_routine,
+		if (pthread_create(&table->philos[i].thread_id, NULL, start_simulation,
 				&table->philos[i]))
-			return (throw_error(table, table->num_philos, "Thread creation"));
+			{
+				destroy_mutexes(table, table->num_philos);
+				return (throw_error(table, "Thread creation"));
+			}
 	}
 	return (TRUE);
 }

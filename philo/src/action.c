@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   throw_error.c                                      :+:      :+:    :+:   */
+/*   action.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/04 01:52:48 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/07 18:58:22 by bmoreira         ###   ########.fr       */
+/*   Created: 2025/12/09 20:18:52 by bmoreira          #+#    #+#             */
+/*   Updated: 2025/12/09 20:19:09 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	throw_error(t_table *table, int m_count, const char *msg)
+void	print_action(t_philo *philo, char *text)
 {
-	printf("Error: %s.\n", msg);
-	clean_all(table, m_count);
-	return (FALSE);
+	pthread_mutex_lock(&philo->table->print_lock);
+	printf("%ld %d %s", get_time_now() - philo->table->start_time,
+		philo->philo_id, text);
+	pthread_mutex_unlock(&philo->table->print_lock);
 }
