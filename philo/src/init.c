@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 17:10:29 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/10 00:33:15 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/10 00:57:12 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	init_table(t_table *table, int argc, char **argv)
 	table->time_to_eat = safe_atoi(argv[3]);
 	table->time_to_sleep = safe_atoi(argv[4]);
 	table->is_running = TRUE;
-	memset(table->locks, 0, MAX);
+	memset(table->locks, 0, LOCK_COUNT);
 	if (argc == 6)
 		table->max_meals = safe_atoi(argv[5]);
 	else
@@ -55,7 +55,7 @@ static int	init_forks(t_table *table)
 		if (pthread_mutex_init(&table->philos[i].fork_r, NULL))
 			return (throw_error(table, i, 0, FORKS));
 		if (i >= 1)
-			table->philos[i].fork_l = table->philos[i - 1].fork_r;
+			table->philos[i].fork_l = &table->philos[i - 1].fork_r;
 	}
 	return (TRUE);
 }

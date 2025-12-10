@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 19:42:22 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/10 00:36:24 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/10 00:57:05 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef enum e_locks
 	DEATH = 0,
 	PRINT = 1,
 	MEAL = 2,
-	MAX = 3,
+	LOCK_COUNT = 3,
 }	t_locks;
 
 
@@ -51,7 +51,7 @@ typedef struct s_philo
 {
 	pthread_t		thread_id;
 	pthread_mutex_t	fork_r;
-	pthread_mutex_t	fork_l;
+	pthread_mutex_t	*fork_l;
 	int				philo_id;
 	int				meals_eaten;
 	long			last_meal;
@@ -67,7 +67,7 @@ typedef struct s_table
 	int				max_meals;
 	int				is_running;
 	long			start_time;
-	char			locks[MAX];
+	char			locks[LOCK_COUNT];
 	t_philo			*philos;
 	pthread_mutex_t	death_lock;
 	pthread_mutex_t	print_lock;

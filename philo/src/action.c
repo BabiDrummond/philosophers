@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 20:18:52 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/09 20:19:09 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/10 00:43:44 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,4 +18,24 @@ void	print_action(t_philo *philo, char *text)
 	printf("%ld %d %s", get_time_now() - philo->table->start_time,
 		philo->philo_id, text);
 	pthread_mutex_unlock(&philo->table->print_lock);
+}
+
+void	taking_a_fork()
+{
+	
+}
+
+void	eating()
+{
+	
+}
+
+void	sleep()
+{
+	
+}
+
+void	think()
+{
+	
 }
