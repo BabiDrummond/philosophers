@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 19:42:22 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/09 21:52:47 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/10 00:36:24 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,25 @@
 
 # define TRUE 1
 # define FALSE 0
+
+typedef enum e_locks
+{
+	DEATH = 0,
+	PRINT = 1,
+	MEAL = 2,
+	MAX = 3,
+}	t_locks;
+
+
+typedef enum e_error
+{
+	USAGE = 0,
+	ARGUMENTS = 1,
+	ALLOC = 2,
+	MUTEX = 3,
+	FORKS = 4,
+	THREADS = 5,
+}	t_error;
 
 typedef struct s_table t_table;
 
@@ -48,31 +67,16 @@ typedef struct s_table
 	int				max_meals;
 	int				is_running;
 	long			start_time;
+	char			locks[MAX];
 	t_philo			*philos;
 	pthread_mutex_t	death_lock;
 	pthread_mutex_t	print_lock;
 	pthread_mutex_t meal_lock;
 }	t_table;
 
-typedef enum e_error
-{
-	USAGE = 0,
-	INVALID_ARGUMENT = 1,
-	ALLOC = 2,
-	TABLE_MUTEX = 3,
-	FORKS = 4,
-	CREATE_THREAD = 5,
-	JOIN_THREAD = 6
-}	t_error;
-
-// Initialization
+// Initialization & Destroy
 int		init_data(t_table *table, int argc, char **argv);
-
-// Destroy
-void	destroy_table_mutexes(t_table *table, int m_count);
-void	destroy_forks(t_table *table, int m_count);
-void	destroy_philos(t_table *table, int p_count);
-void	destroy_data(t_table *table, int mutex, int forks, int philos);
+void	destroy_data(t_table *table, int forks, int philos);
 
 // Simulation
 void	*start_simulation(void *arg);
@@ -80,11 +84,11 @@ void	*start_simulation(void *arg);
 // Utils
 long	get_time_now(void);
 long	safe_atoi(char *str);
-int		throw_error(const char *msg);
+int		throw_error(t_table *table, int forks, int philos, int error_code);
 int		validate_input(int argc, char **argv);
 
 // Monitor
 void	start_monitor(t_table *table);
-int 	is_simulation_over(t_table *table);
+int 	is_simulation_running(t_table *table);
 
 #endif

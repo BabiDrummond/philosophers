@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 19:47:37 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/09 20:15:42 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/10 00:36:07 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	start_monitor(t_table *table)
 	i = -1;
 	all_eaten = 0;
 	//wait for all ready?
-	while (!is_simulation_over(table))
+	while (is_simulation_running(table))
 	{
 		while (++i < table->num_philos)
 		{

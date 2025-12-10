@@ -36,7 +36,7 @@ fclean: clean
 re: fclean all
 
 run: re
-	./$(NAME) 9 200 100 100
+	./$(NAME) 8 200 100 100
 
 valgrind: re
 	valgrind ./$(NAME) 9 200 100 100

@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 01:50:24 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/09 21:47:44 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/10 00:33:48 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,24 +43,23 @@ long	safe_atoi(char *str)
 	return (num * negative);
 }
 
-int	throw_error(int error_code)
+int	throw_error(t_table *table, int forks, int philos, int error_code)
 {
 	if (error_code == USAGE)
 		printf("Usage: ./philo [num_of_philosophers] "
 			"[time_to_die] [time_to_eat] [time_to_sleep] "
-			"[opt: num_of_times_each_philosopher_must_eat]");
-	if (error_code == INVALID_ARGUMENT)
-		printf("Invalid argument provided.");
+			"[opt: num_of_times_each_philosopher_must_eat]\n");
+	if (error_code == ARGUMENTS)
+		printf("Invalid argument provided.\n");
 	if (error_code == ALLOC)
-		printf("Error allocating philos.");
-	if (error_code == TABLE_MUTEX)
-		printf("Error initializing table mutexes.");
+		printf("Error allocating philos.\n");
+	if (error_code == MUTEX)
+		printf("Error initializing table mutexes.\n");
 	if (error_code == FORKS)
-		printf("Error initializing fork mutexes.");
-	if (error_code == CREATE_THREAD)
-		printf("Error creating thread.");
-	if (error_code == JOIN_THREAD)
-		printf("Error joining thread");
+		printf("Error initializing fork mutexes.\n");
+	if (error_code == THREADS)
+		printf("Error creating thread.\n");
+	destroy_data(table, forks, philos);
 	return (FALSE);
 }
 
@@ -70,9 +69,9 @@ int	validate_input(int argc, char **argv)
 
 	i = 0;
 	if (argc != 5 && argc != 6)
-		return (throw_error(USAGE));
+		return (throw_error(NULL, 0, 0, USAGE));
 	while (argv[++i])
 		if ((safe_atoi(argv[i]) <= 0 || safe_atoi(argv[i]) > INT_MAX))
-			return (throw_error(INVALID_ARGUMENT));
+			return (throw_error(NULL, 0, 0, ARGUMENTS));
 	return (TRUE);
 }

@@ -6,13 +6,13 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 14:48:01 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/09 20:20:35 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/10 00:36:39 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int is_simulation_over(t_table *table)
+int is_simulation_running(t_table *table)
 {
 	int status;
 	
@@ -27,8 +27,9 @@ void	*start_simulation(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *) arg;
-	while (!is_simulation_over(philo->table))
+	while (is_simulation_running(philo->table))
 	{
+		printf("hello\n");
 		//try_take_fork
 		//eat (2 cases: 1 philo, more than one)
 		//sleep
