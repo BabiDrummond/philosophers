@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 14:48:01 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/10 01:12:11 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/10 01:42:39 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,10 @@ void	*start_simulation(void *arg)
 	philo = (t_philo *) arg;
 	while (is_simulation_running(philo->table))
 	{
-		printf("hello\n");
-		taking_a_fork();
-		eating();
-		sleeping();
-		thinking();
-		//try_take_fork
-		//eat (2 cases: 1 philo, more than one)
-		//sleep
-		//think (0, algum calculo = resto do tempo até comer / 2, 100, 500)
+		taking_a_fork(philo);
+		eating(philo); //eat (2 cases: 1 philo, more than one)
+		sleeping(philo);
+		thinking(philo); //think (0, algum calculo = resto do tempo até comer / 2, 100, 500)
 	}
 	return (NULL);
 }

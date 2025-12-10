@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 19:47:37 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/10 00:36:07 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/10 01:39:39 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ static int	is_someone_dead(t_philo *philo, int next_meal, long time)
 		philo->table->is_running = FALSE;
 		pthread_mutex_unlock(&philo->table->death_lock);
 		pthread_mutex_lock(&philo->table->print_lock);
-		printf("%ld %d is dead 💀", time - philo->table->start_time,
-			philo->philo_id);
+		printf("\033[90m%ld %d has died 💀\033[0m",
+			time - philo->table->start_time, philo->philo_id);
 		pthread_mutex_unlock(&philo->table->print_lock);
 		return (TRUE);
 	}
