@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 19:42:22 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/10 00:57:05 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/10 01:12:42 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,13 @@
 # define TRUE 1
 # define FALSE 0
 
-typedef enum e_locks
+typedef enum e_lock
 {
 	DEATH = 0,
 	PRINT = 1,
 	MEAL = 2,
 	LOCK_COUNT = 3,
-}	t_locks;
-
+}	t_lock;
 
 typedef enum e_error
 {
@@ -45,7 +44,7 @@ typedef enum e_error
 	THREADS = 5,
 }	t_error;
 
-typedef struct s_table t_table;
+typedef struct s_table	t_table;
 
 typedef struct s_philo
 {
@@ -71,24 +70,27 @@ typedef struct s_table
 	t_philo			*philos;
 	pthread_mutex_t	death_lock;
 	pthread_mutex_t	print_lock;
-	pthread_mutex_t meal_lock;
+	pthread_mutex_t	meal_lock;
 }	t_table;
 
 // Initialization & Destroy
 int		init_data(t_table *table, int argc, char **argv);
 void	destroy_data(t_table *table, int forks, int philos);
 
+// Action
+void	print_action(t_philo *philo, char *text);
+
 // Simulation
+int		is_simulation_running(t_table *table);
 void	*start_simulation(void *arg);
+
+// Monitor
+void	start_monitor(t_table *table);
 
 // Utils
 long	get_time_now(void);
 long	safe_atoi(char *str);
 int		throw_error(t_table *table, int forks, int philos, int error_code);
 int		validate_input(int argc, char **argv);
-
-// Monitor
-void	start_monitor(t_table *table);
-int 	is_simulation_running(t_table *table);
 
 #endif

@@ -6,16 +6,16 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 14:48:01 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/10 00:36:39 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/10 01:12:11 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int is_simulation_running(t_table *table)
+int	is_simulation_running(t_table *table)
 {
-	int status;
-	
+	int	status;
+
 	pthread_mutex_lock(&table->death_lock);
 	status = table->is_running;
 	pthread_mutex_unlock(&table->death_lock);
@@ -30,6 +30,10 @@ void	*start_simulation(void *arg)
 	while (is_simulation_running(philo->table))
 	{
 		printf("hello\n");
+		taking_a_fork();
+		eating();
+		sleeping();
+		thinking();
 		//try_take_fork
 		//eat (2 cases: 1 philo, more than one)
 		//sleep

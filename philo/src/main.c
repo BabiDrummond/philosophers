@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 19:41:52 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/10 00:44:38 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/10 01:10:34 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	main(int argc, char **argv)
 {
 	t_table	table;
-	
+
 	if (!validate_input(argc, argv))
 		return (EXIT_FAILURE);
 	if (!init_data(&table, argc, argv))

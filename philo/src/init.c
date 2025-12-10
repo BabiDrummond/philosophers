@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 17:10:29 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/10 00:57:12 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/10 01:10:17 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ static int	init_philos(t_table *table)
 		table->philos[i].last_meal = table->start_time;
 		table->philos[i].table = table;
 		if (pthread_create(&table->philos[i].thread_id, NULL, start_simulation,
-			&table->philos[i]))
-				return (throw_error(table, table->num_philos, i, THREADS));
+				&table->philos[i]))
+			return (throw_error(table, table->num_philos, i, THREADS));
 	}
 	return (TRUE);
 }

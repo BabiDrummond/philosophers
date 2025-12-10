@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 01:50:24 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/10 00:48:35 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/10 01:10:53 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 long	get_time_now(void)
 {
 	struct timeval	now;
-	
+
 	if (gettimeofday(&now, NULL) == -1)
 		return (-1);
 	return ((now.tv_sec * 1000) + (now.tv_usec / 1000));

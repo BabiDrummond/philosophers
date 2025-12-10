@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 22:29:15 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/10 00:40:19 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/10 01:11:28 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	destroy_philos(t_table *table, int p_count)
 {
 	int	i;
-	
+
 	i = -1;
 	while (++i < p_count)
 		if (pthread_join(table->philos[i].thread_id, NULL))
@@ -31,7 +31,7 @@ static void	destroy_forks(t_table *table, int f_count)
 		pthread_mutex_destroy(&table->philos[i].fork_r);
 }
 
-static void destroy_mutexes(t_table *table)
+static void	destroy_mutexes(t_table *table)
 {
 	if (table->locks[DEATH])
 		pthread_mutex_destroy(&table->death_lock);
