@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 17:10:29 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/10 01:10:17 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/11 03:35:06 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,16 @@ static int	init_mutexes(t_table *table)
 static int	init_forks(t_table *table)
 {
 	int	i;
+	int	n;
 
 	i = -1;
-	while (++i < table->num_philos)
+	n = table ->num_philos;
+	while (++i < n)
 	{
 		memset(&table->philos[i].fork_r, 0, sizeof(pthread_mutex_t));
 		if (pthread_mutex_init(&table->philos[i].fork_r, NULL))
 			return (throw_error(table, i, 0, FORKS));
-		if (i >= 1)
-			table->philos[i].fork_l = &table->philos[i - 1].fork_r;
+		table->philos[i].fork_l = &table->philos[(i - 1 + n) % n].fork_r;
 	}
 	return (TRUE);
 }

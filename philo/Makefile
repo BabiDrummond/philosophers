@@ -36,9 +36,9 @@ fclean: clean
 re: fclean all
 
 run: re
-	./$(NAME) 8 200 100 100
+	./$(NAME) 3 400 100 100
 
 valgrind: re
-	valgrind ./$(NAME) 9 200 100 100
+	valgrind ./$(NAME) 1 200 100 100
 
 .PHONY: clean fclean re bonus

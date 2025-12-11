@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 01:50:24 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/10 01:10:53 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/11 00:56:45 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,14 @@ long	safe_atoi(char *str)
 			return ((long) INT_MAX + 1);
 	}
 	return (num * negative);
+}
+
+void	safe_print(t_philo *philo, char *text)
+{
+	pthread_mutex_lock(&philo->table->print_lock);
+	if (is_simulation_running(philo->table))
+		printf(text, get_time_now() - philo->table->start_time, philo->philo_id);
+	pthread_mutex_unlock(&philo->table->print_lock);
 }
 
 int	throw_error(t_table *table, int forks, int philos, int error_code)

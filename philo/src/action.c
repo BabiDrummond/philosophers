@@ -6,25 +6,23 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 20:18:52 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/10 23:25:31 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/11 03:41:38 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	print_action(t_philo *philo, char *text)
+void	wait_action(t_philo *philo, long ms)
 {
-	pthread_mutex_lock(&philo->table->print_lock);
-	pthread_mutex_lock(&philo->table->death_lock);
-	if (!philo->table->is_running)
+	long	start;
+
+	start = get_time_now();
+	while ((get_time_now() - start) < ms)
 	{
-		pthread_mutex_unlock(&philo->table->print_lock);
-		pthread_mutex_unlock(&philo->table->death_lock);
-		return ;
+		if(!is_simulation_running(philo->table))
+			break ;
+		usleep(100);
 	}
-	pthread_mutex_unlock(&philo->table->death_lock);
-	printf(text, get_time_now() - philo->table->start_time, philo->philo_id);
-	pthread_mutex_unlock(&philo->table->print_lock);
 }
 
 void	taking_a_fork(t_philo *philo)
@@ -34,28 +32,36 @@ void	taking_a_fork(t_philo *philo)
 
 	first = &philo->fork_r;
 	second = philo->fork_l;
-	if (philo->philo_id % 2 == 0)
+	if (philo->philo_id == philo->table->num_philos - 1)
 	{
 		first = philo->fork_l;
 		second = &philo->fork_r;
 	}
 	pthread_mutex_lock(first);
-	print_action(philo, "\033[93m%ld %d has taken a fork 🍴\033[0m\n");
+	safe_print(philo, "\033[93m%ld %d has taken a fork 🍴\033[0m\n");
 	pthread_mutex_lock(second);
-	print_action(philo, "\033[93m%ld %d has taken a fork 🍴\033[0m\n");
+	safe_print(philo, "\033[93m%ld %d has taken a fork 🍴\033[0m\n");
 }
 
-// void	eating(t_philo *philo, pthread_mutex_t **f, pthread_mutex_t **s)
-// {
-	
-// }
+void	eating(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->table->meal_lock);
+	philo->last_meal = get_time_now();
+	philo->meals_eaten++;
+	pthread_mutex_unlock(&philo->table->meal_lock);
+	safe_print(philo, "\033[95m%ld %d is eating 🍝\033[0m\n");
+	wait_action(philo, philo->table->time_to_eat);
+	pthread_mutex_unlock(&philo->fork_r);
+	pthread_mutex_unlock(philo->fork_l);
+}
 
 void	sleeping(t_philo *philo)
 {
-	print_action(philo, "\033[34m%ld %d is sleeping 😴\033[0m\n");
-	usleep(philo->table->time_to_sleep * 1000);
+	safe_print(philo, "\033[34m%ld %d is sleeping 😴\033[0m\n");
+	wait_action(philo, philo->table->time_to_sleep);
 }
 
-// void	thinking(t_philo *philo)
-// {
-// }
+void	thinking(t_philo *philo)
+{
+	safe_print(philo, "\033[97m%ld %d is thinking 💭\033[0m\n");
+}

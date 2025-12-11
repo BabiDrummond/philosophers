@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 19:42:22 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/10 23:22:51 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/11 03:38:56 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,15 @@ int		init_data(t_table *table, int argc, char **argv);
 void	destroy_data(t_table *table, int forks, int philos);
 
 // Action
-void	print_action(t_philo *philo, char *text);
+void	wait_action(t_philo *philo, long ms);
 void	taking_a_fork(t_philo *philo);
+void	eating(t_philo *philo);
 void	sleeping(t_philo *philo);
+void	thinking(t_philo *philo);
 
 // Simulation
 int		is_simulation_running(t_table *table);
+void 	*simulation_one_philo(t_philo *philo);
 void	*start_simulation(void *arg);
 
 // Monitor
@@ -92,6 +95,7 @@ void	start_monitor(t_table *table);
 // Utils
 long	get_time_now(void);
 long	safe_atoi(char *str);
+void	safe_print(t_philo *philo, char *text);
 int		throw_error(t_table *table, int forks, int philos, int error_code);
 int		validate_input(int argc, char **argv);
 
