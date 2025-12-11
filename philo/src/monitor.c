@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 19:47:37 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/11 03:34:55 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/11 05:43:36 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,6 @@ void	start_monitor(t_table *table)
 				|| is_all_eaten(table, all_eaten))
 				break ;
 		}
-		usleep(1000);
+		usleep(100);
 	}
 }
