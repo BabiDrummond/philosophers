@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 14:48:01 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/11 03:38:16 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/11 03:56:04 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	*start_simulation(void *arg)
 		taking_a_fork(philo);
 		eating(philo);
 		sleeping(philo);
-		thinking(philo); //think (0, algum calculo = resto do tempo até comer / 2, 100, 500)
+		thinking(philo);
 	}
 	return (NULL);
 }

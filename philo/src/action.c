@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 20:18:52 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/11 03:41:38 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/11 03:55:09 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,14 @@ void	sleeping(t_philo *philo)
 
 void	thinking(t_philo *philo)
 {
+	int	think_time;
+
+	pthread_mutex_lock(&philo->table->meal_lock);
+	think_time = (philo->table->time_to_die - get_time_now() - 
+		philo->last_meal) / 2;
+	pthread_mutex_unlock(&philo->table->meal_lock);
+	if (think_time < 0)
+		think_time = 0;
 	safe_print(philo, "\033[97m%ld %d is thinking 💭\033[0m\n");
+	wait_action(philo, think_time);
 }
