@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 19:42:22 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/10 01:12:42 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/10 23:22:51 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ void	destroy_data(t_table *table, int forks, int philos);
 
 // Action
 void	print_action(t_philo *philo, char *text);
+void	taking_a_fork(t_philo *philo);
+void	sleeping(t_philo *philo);
 
 // Simulation
 int		is_simulation_running(t_table *table);
