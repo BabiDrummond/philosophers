@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 14:48:01 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/11 04:44:09 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/11 21:57:05 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	is_simulation_running(t_table *table)
 	return (status);
 }
 
-void *simulation_one_philo(t_philo *philo)
+void	*simulation_one_philo(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->fork_r);
 	safe_print(philo, "\033[93m%ld %d has taken a fork 🍴\033[0m\n");

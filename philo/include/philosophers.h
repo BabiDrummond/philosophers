@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 19:42:22 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/11 05:53:31 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/11 21:57:29 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	thinking(t_philo *philo);
 
 // Simulation
 int		is_simulation_running(t_table *table);
-void 	*simulation_one_philo(t_philo *philo);
+void	*simulation_one_philo(t_philo *philo);
 void	*start_simulation(void *arg);
 
 // Monitor

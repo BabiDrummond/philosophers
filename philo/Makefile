@@ -35,10 +35,4 @@ fclean: clean
 
 re: fclean all
 
-run: re
-	./$(NAME) 2 200 100 100
-
-valgrind: re
-	valgrind ./$(NAME) 2 200 100 100
-
 .PHONY: clean fclean re bonus

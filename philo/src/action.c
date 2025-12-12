@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 20:18:52 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/11 05:49:20 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/11 22:02:58 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	wait_action(t_philo *philo, long ms)
 	start = get_time_now();
 	while ((get_time_now() - start) < ms)
 	{
-		if(!is_simulation_running(philo->table))
+		if (!is_simulation_running(philo->table))
 			break ;
 		usleep(100);
 	}
@@ -30,6 +30,8 @@ void	taking_a_fork(t_philo *philo)
 	pthread_mutex_t	*first;
 	pthread_mutex_t	*second;
 
+	if (!is_simulation_running(philo->table))
+		return ;
 	first = &philo->fork_r;
 	second = philo->fork_l;
 	if (philo->philo_id % 2 == 0)
@@ -66,8 +68,8 @@ void	thinking(t_philo *philo)
 	int	think_time;
 
 	pthread_mutex_lock(&philo->table->meal_lock);
-	think_time = (philo->table->time_to_die - 
-		(get_time_now() - philo->last_meal)) / 2;
+	think_time = (philo->table->time_to_die
+			- (get_time_now() - philo->last_meal)) / 2;
 	pthread_mutex_unlock(&philo->table->meal_lock);
 	if (think_time < 0)
 		think_time = 0;

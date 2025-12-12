@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 01:50:24 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/11 04:54:51 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/11 21:55:41 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ void	safe_print(t_philo *philo, char *text)
 {
 	pthread_mutex_lock(&philo->table->print_lock);
 	if (is_simulation_running(philo->table))
-		printf(text, get_time_now() - philo->table->start_time, philo->philo_id);
+		printf(text, get_time_now() - philo->table->start_time,
+			philo->philo_id);
 	pthread_mutex_unlock(&philo->table->print_lock);
 }
 
