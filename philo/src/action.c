@@ -6,7 +6,7 @@
 /*   By: bmoreira <bmoreira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 20:18:52 by bmoreira          #+#    #+#             */
-/*   Updated: 2025/12/11 22:04:26 by bmoreira         ###   ########.fr       */
+/*   Updated: 2025/12/11 22:07:51 by bmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	eating(t_philo *philo)
 		safe_print(philo, "\033[95m%ld %d is eating 🍝\033[0m\n");
 		wait_action(philo, philo->table->time_to_eat);
 		pthread_mutex_unlock(&philo->fork_r);
-		pthread_mutex_unlock(philo->fork_l);	
+		pthread_mutex_unlock(philo->fork_l);
 	}
 }
 
