@@ -35,4 +35,10 @@ fclean: clean
 
 re: fclean all
 
+run: re
+	./$(NAME) 4 310 200 100
+
+valgrind: re
+	valgrind --tool=helgrind ./$(NAME) 4 310 200 100
+
 .PHONY: clean fclean re bonus
