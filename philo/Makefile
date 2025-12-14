@@ -36,9 +36,9 @@ fclean: clean
 re: fclean all
 
 run: re
-	./$(NAME) 4 310 200 100
+	./$(NAME) 2 200 100 100
 
 valgrind: re
-	valgrind --tool=helgrind ./$(NAME) 4 310 200 100
+	valgrind --tool=helgrind ./$(NAME) 5 810 500 200
 
 .PHONY: clean fclean re bonus
