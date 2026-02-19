@@ -18,19 +18,19 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@$(CC) $(OBJS) -o $(NAME)
-	@echo -n "\033[0;32mGenerated philo\n"
+	@echo "\033[0;32mGenerated philo\033[0m"
 
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
-	@echo "\033[95mCompiling $(notdir $<)"
+	@echo "\033[95mCompiling \033[0m$(notdir $<)"
 
 clean:
-	@echo "\033[0;34mCleaning philo objects"
+	@echo "\033[0;34mCleaning philo objects\033[0m"
 	@rm -rf $(OBJS_DIR)
 
 fclean: clean
-	@echo "\033[0;34mCleaning philo"
+	@echo "\033[0;34mCleaning philo\033[0m"
 	@rm -f $(NAME)
 
 re: fclean all
